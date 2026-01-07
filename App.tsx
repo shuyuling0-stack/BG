@@ -115,7 +115,7 @@ const App: React.FC = () => {
   const currentTape = tapes.find(t => t.id === currentTapeId) || null;
 
   return (
-    <div className="min-h-screen relative overflow-hidden font-sans selection:bg-[#8d6e63] selection:text-[#ece0d1]">
+    <div className="min-h-screen relative overflow-x-hidden font-sans selection:bg-[#8d6e63] selection:text-[#ece0d1]">
       
       {/* Interactive Falling Dandelions (When Playing) */}
       <DandelionOverlay active={isPlaying} />
@@ -123,7 +123,7 @@ const App: React.FC = () => {
       {/* Memory Images Overlay (When Playing) - Now on Top */}
       <MemoryOverlay images={memoryImages} active={isPlaying} />
 
-      <div className="z-10 w-full min-h-screen flex flex-col items-center justify-center p-4 gap-6 md:gap-8">
+      <div className="z-10 w-full min-h-screen flex flex-col items-center justify-start md:justify-center p-4 gap-6 md:gap-8 pt-8 md:pt-4">
         
         {/* Header */}
         <div className="text-center space-y-2 mb-2 relative shrink-0 group cursor-default">
@@ -136,7 +136,7 @@ const App: React.FC = () => {
         </div>
 
         {/* Player Unit */}
-        <div className="w-full shrink-0">
+        <div className="w-full shrink-0 flex justify-center">
           <MusicPlayer 
             currentTape={currentTape}
             isPlaying={isPlaying}
@@ -147,10 +147,10 @@ const App: React.FC = () => {
           />
         </div>
 
-        {/* Tapes Collection */}
-        <div className="w-full max-w-5xl flex flex-row flex-nowrap justify-center items-center gap-2 md:gap-6 mt-2 perspective-1000 shrink-0 overflow-visible px-2 pb-2">
+        {/* Tapes Collection - Flex Column on Mobile, Row on Desktop */}
+        <div className="w-full max-w-5xl flex flex-col md:flex-row flex-nowrap justify-center items-center gap-4 md:gap-6 mt-2 perspective-1000 shrink-0 px-2 pb-8">
           {tapes.map(tape => (
-            <div key={tape.id} className="flex-1 min-w-0 max-w-[320px] transition-transform hover:scale-105 hover:-translate-y-2 origin-bottom duration-300">
+            <div key={tape.id} className="w-full max-w-[320px] transition-transform hover:scale-105 hover:-translate-y-2 origin-center md:origin-bottom duration-300">
               <CassetteTape
                 tape={tape}
                 isActive={currentTapeId === tape.id}
@@ -164,7 +164,7 @@ const App: React.FC = () => {
         </div>
 
         {/* Memory Upload Section */}
-        <div className="flex flex-col items-center gap-2 shrink-0 z-20">
+        <div className="flex flex-col items-center gap-2 shrink-0 z-20 pb-8">
           <input 
             type="file" 
             ref={imageInputRef} 
