@@ -31,17 +31,25 @@ export const MemoryOverlay: React.FC<Props> = ({ images, active }) => {
     const interval = setInterval(() => {
       const randomImage = images[Math.floor(Math.random() * images.length)];
       
+      // Check for mobile width
+      const isMobile = window.innerWidth < 768;
+      
+      // Determine size range based on device
+      // Mobile: 80px - 140px
+      // Desktop: 140px - 220px
+      const baseSize = isMobile ? 80 : 140;
+      const sizeVariance = isMobile ? 60 : 80;
+
       const newMemory: FloatingMemory = {
         id: nextId.current++,
         url: randomImage,
-        // Avoid center screen (where the player is) roughly
-        // 0-30% or 70-100% width, OR if in middle, put it very top/bottom
+        // Position: Randomly across width (10% to 90%) and height (20% to 80%)
         x: Math.random() * 80 + 10, 
         y: Math.random() * 60 + 20, 
         rotationStart: (Math.random() - 0.5) * 10,
         rotationMid: (Math.random() - 0.5) * 20,
         rotationEnd: (Math.random() - 0.5) * 30,
-        size: Math.random() * 150 + 150, // 150px to 300px
+        size: Math.random() * sizeVariance + baseSize, 
         duration: 8 + Math.random() * 5, // 8-13 seconds duration
       };
 
