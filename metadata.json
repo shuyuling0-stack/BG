@@ -1,0 +1,5 @@
+{
+  "name": "Retro Brown Audio Deck",
+  "description": "A vintage-style music player where you load MP3s into colored cassette tapes.",
+  "requestFramePermissions": []
+}
